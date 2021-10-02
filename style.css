@@ -1,0 +1,10 @@
+.profile,
+.logout {
+	display: none;
+}
+
+.avatar {
+	width: 100%;
+	width: 100px;
+	height: auto;
+}
