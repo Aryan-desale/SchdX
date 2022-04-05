@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Insights</title>
+
+    <meta http-equiv="Cache-control" content="private">
+
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://kit.fontawesome.com/e7e3b5ac2c.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <meta name="referrer" content="no-referrer">
+    <meta charset='utf-8' />
+
+    <link href='node_modules/fullcalendar-scheduler/main.css' rel='stylesheet' />
+    <script src='node_modules/fullcalendar-scheduler/main.js'></script>
+
+
+</head>
+
+<script src="init.js"></script>
+
+<body  class="body">
+
+    <nav class="navbar">
+
+        <div class="nav-main">
+
+
+            <a href="index.html" class="nav-item Home">Home</a>
+
+            <a href="insights.html" class="nav-item Insights">Insights</a>
+
+            <a href="schedule.html" class="nav-item Schedule">Schedule Posts</a>
+
+
+
+
+        </div>
+
+        
+            <div class="navigation">
+            
+                <a class="button" href="">					
+                    <img class="avatar" src=" " alt="" />
+
+            
+                    <div class="logout">LOGOUT</div>
+
+                </a>
+            
+            </div>
+       
+
+            <!-- <li class="logout" href="#" onclick="logout()">Logout</li> -->
+
+            <fb:login-button id="fb-btn"
+                    scope="public_profile,email"
+                    >
+            </fb:login-button>
+    </nav>
+
+    <div id="container">
+
+            
+            
+    <div class="acc-overview">
+
+         <div class="flex">
+             
+                    <div class="acc-div">
+                        
+                          <i class="acc-icon fas fa-users "></i>
+             
+                          <div class="vl"></div>
+             
+                          <div class="flw-text">
+                              <h3 class="flw-heading"></h3>
+                              <h4>Total Followers</h4>
+                          </div>
+                        
+                    </div> 
+             
+                    <div class="acc-div">
+                        
+                          <i class="acc-icon fas fa-bullhorn"></i>
+             
+                          <div class="vl"></div>
+             
+                          <div class="reach-text">
+                              <h3 class="reach-heading"> </h3>
+                              <h4>Total Reach in Last [30 Days]</h4>
+                          </div>
+                        
+                    </div> 
+             
+             
+                     <div class="acc-div">
+                    
+                          <i class="acc-icon far fa-eye"></i>
+             
+                          <div class="vl"></div>
+             
+                          <div class="impression-text">
+                              <h3 class="impression-heading"> </h3>
+                              <h4>Total Impressions in Last [30 Days]</h4>
+                          </div>
+                        
+                    </div> 
+             
+             
+                     <div class="acc-div">
+             
+                        <i class="acc-icon far fa-user-circle"></i>
+                    
+                          <div class="vl"></div>
+             
+                          <div class="profile-text">
+                              <h3 class="profile-heading"> </h3>
+                              <h4>Profile visit in Last [30 Days]</h4>
+                          </div>
+                        
+                    </div>
+         </div>
+
+
+
+         <div class="flex1">
+
+
+                    <div class="acc-div1">
+
+                        <i class="acc-icon fas fa-envelope"></i>
+                                     
+                          <div class="vl1"></div>
+             
+                          <div class="email-text">
+                              <h3 class="email-heading"></h3>
+                              <h4>Email button taps in last [30 Days]</h4>
+                          </div>
+                        
+                    </div> 
+             
+                    <div class="acc-div1">
+
+                        <i class="acc-icon fas fa-phone-square-alt"></i>
+                        
+             
+                          <div class="vl1"></div>
+             
+                          <div class="phone-text">
+                              <h3 class="phone-heading"> </h3>
+                              <h4> Call button taps in Last [30 Days]</h4>
+                          </div>
+                        
+                    </div> 
+             
+             
+                     <div class="acc-div1">
+                    
+                            <i class="acc-icon fas fa-comment-dots"></i>             
+                          <div class="vl1"></div>
+             
+                          <div class="msg-text">
+                              <h3 class="msg-heading"> </h3>
+                              <h4> Message button taps in last [30 Days]</h4>
+                          </div>
+                        
+                    </div> 
+             
+             
+                     <div class="acc-div1">
+             
+                        <i class="acc-icon fas fa-globe"></i>
+                    
+                          <div class="vl1"></div>
+             
+                          <div class="website-text">
+                              <h3 class="website-heading"> </h3>
+                              <h4> Website button taps in last [30 Days]</h4>
+                          </div>
+                        
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+         
+         
+
+        <!-- <button class="instaLogin">Get access token</button> -->
+
+
+        
+
+
+        <!-- <div id="chartDiv" style="width:80%; height:400px; margin:0 auto;"></div> -->
+
+
+
+
+        <h2 class="h2">Audience Gender and Age overview</h2>
+
+        <div id="cityChartDiv" style="width: 1200px; height:500px; margin:0 auto;"></div>
+
+        <br>
+
+        <h2 class="h2">Follower Growth</h2>
+
+        <div id="growthDiv" style="width: 1200px; height:500px; margin:0 auto;"></div>
+
+        <br>
+
+        <h2 class="h2">Audience Location</h2>
+
+
+        <div id="mapDiv" style="width:1200px; height:600px; margin:0 auto;"></div>
+
+        <br>
+
+        <h2 class="h2"> Audience Language Overview</h2>
+
+
+        <div id="langDiv" style="width:1200px; height:500px; margin:0 auto; "></div>
+
+
+        <br>
+
+
+
+        <div class="impression"> </div>
+
+        <div class="reach"> </div>
+
+        <div class="profileViews"> </div>
+
+        <div class="emailContact"> </div>
+
+        <div class="phoneClick"> </div>
+
+        <div class="textClick"> </div>
+
+        <div class="webClick"> </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+    </div>
+
+
+
+
+
+
+
+
+
+    
+    
+</body>
+
+<script src="https://code.jscharting.com/latest/jscharting.js"></script>
+<script type="text/javascript" src="https://code.jscharting.com/latest/modules/types.js"></script>
+<script type="text/javascript" src="https://code.jscharting.com/latest/modules/toolbar.js"></script>
+<script type="text/javascript" src="https://code.jscharting.com/latest/modules/maps.js"></script>
+<!-- <script type="text/javascript" src="../jsc/modules/toolbar.js"></script> -->
+
+
+<script src="main.js"></script>
+
+</html>

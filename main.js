@@ -2,6 +2,185 @@
 
 // IGQVJYR1hXemxvbmVvbTJ1bFNoSnBxSVEtNXV6SUxyXzM0bkdNMXUtbDhGOVp0eUoyTDJ6T3hUaFhwZADB1WnZAGRkJvMVNHb1phc3FsY1dXUHhBU3A4Nl9aUGZA4WllsNE94dDBFQTBQVmpXSnZAyNnF3dQZDZD
 
+let endDate;
+
+let fakearr1 = [];
+
+// localStorage.clear();
+
+let arr = [];
+
+let seconds;
+
+let imgUrl = ' ';
+
+let pastEvent = [];
+
+let fakearr = [];
+
+let l = 0;
+
+let fileBtn = document.querySelector('#file');
+
+let fileUpload = document.querySelector('.upload');
+
+let finalEvent;
+
+let length;
+
+document.addEventListener('DOMContentLoaded', function() {
+	var calendarEl = document.getElementById('calendar');
+
+	for (let i = 0; i <= 100; i++) {
+		if (localStorage.getItem(`session ${i}`) == 'undefined') {
+			localStorage.removeItem(`session ${i}`);
+		} else if (localStorage.getItem(`session ${i}`) == localStorage.getItem(`session ${i - 1}`)) {
+			localStorage.removeItem(`session ${i}`);
+		}
+	}
+
+	if (localStorage.arrlength >= 0) {
+		for (let i = 0; i <= localStorage.length; i++) {
+			if (localStorage.getItem(`session ${i}`) !== 'undefined' && localStorage.getItem(`session ${i}`) !== null) {
+				arr.push(JSON.parse(localStorage.getItem(`session ${i}`)));
+			}
+
+			// arr[i] = arr[i].replace(" /'", ' ');
+
+			// arr[i] = JSON.parse(arr[i]);
+		}
+	}
+	console.log(arr);
+
+	let calendar = new FullCalendar.Calendar(calendarEl, {
+		timeZone      : 'UTC',
+		initialView   : 'dayGridMonth',
+		selectable    : true,
+
+		headerToolbar : {
+			left   : 'prev,next today',
+			center : 'title',
+			right  : 'timeGridWeek,timeGridDay,dayGridMonth'
+		},
+		editable      : true,
+		events        : arr,
+
+		eventClick    : function(info) {
+			info.jsEvent.preventDefault(); // don't let the browser navigate
+
+			if (info.event.url) {
+				window.open(info.event.url);
+			}
+
+			// let con = confirm('Delete this event.');
+
+			// if (con == true) {
+			// 	info.event.remove();
+			// }
+		},
+
+		dateClick     : function(info) {
+			endDate = info.dateStr;
+
+			localStorage.enddate = info.dateStr;
+
+			setTimeout(cal, 3000);
+
+			function cal() {
+				if (imgUrl !== ' ' && today <= endDate) {
+					calendar.addEvent({
+						title : `Post ${l + 1}`,
+						url   : `${imgUrl}`,
+						start : `${today}`,
+						end   : `${endDate}`
+					});
+
+					l = l + 1;
+
+					fakearr.push({
+						title : `Post ${l}`,
+						url   : `${imgUrl}`,
+						start : `${today}`,
+						end   : `${endDate}`
+					});
+
+					// fakearr1 = fakearr;
+
+					imgUrl = ' ';
+
+					newEvent();
+				} else if (today > endDate) {
+					alert('Please select a date that is in the future!');
+				} else {
+					return;
+				}
+			}
+
+			function newEvent() {
+				localStorage.arrlength = fakearr.length;
+
+				if (fakearr.length > 0) {
+					for (let i = 0; i < fakearr.length; i++) {
+						if (localStorage.getItem(`session ${maxSessionID()}`) == null) {
+							localStorage.setItem(`session ${maxSessionID()}`, JSON.stringify(fakearr[i]));
+							fakearr.splice(i, 1);
+
+							// console.log(1);
+						}
+					}
+
+					// localStorage.setItem('session', JSON.stringify(arr));
+					// pastEvent.push(JSON.parse(localStorage.getItem('session')));
+					// localStorage.pushEvent = JSON.stringify(arr);
+				}
+
+				// for (let i = 0; i < fakearr.length; i++) {
+				// 	localStorage.setItem(`session${maxSessionID() + 1}`, JSON.stringify.fakearr[i]);
+				// }
+			}
+
+			function maxSessionID() {
+				let j = 1;
+				while (localStorage.getItem(`session ${j}`) !== null) {
+					j = j + 1;
+				}
+				console.log(j);
+
+				return j;
+			}
+
+			// info.dayEl.style.backgroundColor = 'red';
+			var today = new Date();
+			var dd = String(today.getDate()).padStart(2, '0');
+			var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+			var yyyy = today.getFullYear();
+
+			today = yyyy + '-' + mm + '-' + dd;
+
+			const date1 = new Date(`${today}`);
+			const date2 = new Date(`${endDate}`);
+			seconds = date2 - date1;
+			console.log(seconds);
+		}
+	});
+
+	// console.log(calendar.getEventSources());
+
+	// calendar.getEventSources();
+
+	calendar.render();
+
+	// calendar.addEventSource(arr[0]);
+
+	// calendar.refetchEvents();
+
+	// console.log(JSON.parse(localStorage.pushEvent));
+
+	// for (let i = 0; i <= pastEvent.length; i++) {
+
+	// }
+});
+
 var langCode = {
 	ab : {
 		name       : 'Abkhaz',
@@ -493,7 +672,7 @@ var langCode = {
 	},
 	pa : {
 		name       : 'Punjabi',
-		nativeName : 'ਪੰਜਾਬੀ, پنجابی‎'
+		nativeName : 'ਪੰਜਾਬੀ, پنجابی'
 	},
 	pi : {
 		name       : 'Pāli',
@@ -733,13 +912,9 @@ var langCode = {
 	}
 };
 
-let fileBtn = document.querySelector('#file');
-
-let fileUpload = document.querySelector('.upload');
-
 let uplodValue;
 
-let imgUrl;
+let accessToken;
 
 let creationId;
 
@@ -784,45 +959,61 @@ var priorDate = Math.round(new Date().setDate(ts.getDate() - 30));
 priorDate = Math.round(new Date(priorDate).getTime() / 1000);
 
 function statusChangeCallback(response) {
-	if (response.status === 'connected') {
+	console.log(response);
+
+	// localStorage.status = 'connected';
+
+	// response.status == localStorage.status;
+
+	if (response.status == 'connected' || response.status == 'not_authorized') {
 		setElements(true);
+
 		console.log('Logged in');
+
 		instaInfo();
 	} else {
-		setElements(false);
+		// setElements(false);
 		console.log('not logged in');
 	}
 }
 
-function checkLoginState() {
+window.onload = function checkLogin() {
 	FB.getLoginStatus(function(response) {
 		statusChangeCallback(response);
 	});
-}
+};
 
 function setElements(isLoggedIn) {
 	if (isLoggedIn) {
 		document.querySelector('#fb-btn').style.display = 'none';
 		document.querySelector('.logout').style.display = 'block';
-		document.querySelector('.profile').style.display = 'block';
+		document.querySelector('.navigation').style.display = 'block';
+		// document.querySelector('.nav-main').style.visibility = 'visible';
+		document.querySelector('#container').style.display = 'block';
 	} else {
 		document.querySelector('#fb-btn').style.display = 'block';
 		document.querySelector('.logout').style.display = 'none';
-		document.querySelector('.profile').style.display = 'none';
+		document.querySelector('.navigation').style.display = 'none';
+		// document.querySelector('.nav-main').style.visibility = 'hidden';
+		document.querySelector('#container').style.display = 'none';
 	}
 }
 
-function logout() {
+document.querySelector('.logout').addEventListener('click', () => {
 	FB.logout(function() {
+		// localStorage.status = 'not_authorized';
 		setElements(false);
+		document.querySelector('.avatar').src = ' ';
+
+		console.log('Logged Out!');
 	});
-}
+});
 
 function instaInfo() {
 	FB.api('/me/accounts', 'GET', {}, function(response) {
 		console.log(response);
 
-		let accessToken = `${response.data[0].access_token}`;
+		accessToken = `${response.data[0].access_token}`;
 
 		let pageId = `${response.data[0].id}`;
 
@@ -839,15 +1030,15 @@ function instaInfo() {
 
 			console.log(response);
 
-			instaId = `${response.connected_instagram_account.id}`;
+			instaId = `${response.id}`;
 
 			console.log(instaId);
 
-			FB.api(`/${instaId}`, 'GET', { fields: 'ig_id' }, function(response) {
-				igId = `${response.ig_id}`;
+			// FB.api(`/${instaId}`, 'GET', { fields: 'ig_id' }, function(response) {
+			// 	igId = `${response.ig_id}`;
 
-				console.log(igId);
-			});
+			// 	console.log(igId);
+			// });
 
 			FB.api(
 				`${instaId}`,
@@ -856,10 +1047,35 @@ function instaInfo() {
 				function(response) {
 					// Insert your code here
 
-					document.querySelector('.name').innerHTML = `${response.name}`;
-					document.querySelector('.avatar').src = `${response.profile_picture_url}`;
+					if (response.profile_picture_url !== ' ') {
+						localStorage.profileImg = response.profile_picture_url;
+					}
+
+					// document.querySelector('.name').innerHTML = `${response.name}`;
+
+					document.querySelector('.avatar').src = localStorage.profileImg;
+
+					document.querySelector('.flw-heading').innerHTML = `${response.followers_count}`;
 
 					console.log(response);
+
+					axios
+						.get(
+							`https://graph.facebook.com/v11.0/${instaId}/insights?metric=impressions,reach&period=days_28&since=${priorDate}&until=${today}&access_token=${accessToken}`
+						)
+						.then((res) => {
+							let impressions = res.data.data[0].values[0];
+
+							let finalImpressions = Object.entries(impressions);
+
+							let reach = res.data.data[1].values[0];
+
+							let finalReach = Object.entries(reach);
+
+							document.querySelector('.impression-heading').innerHTML = `${finalImpressions[0][1]}`;
+
+							document.querySelector('.reach-heading').innerHTML = `${finalReach[0][1]}`;
+						});
 
 					axios
 						.get(
@@ -876,9 +1092,7 @@ function instaInfo() {
 								profileArr += finalProfileViews[i][1].value;
 							}
 
-							document.querySelector(
-								'.profileViews'
-							).innerHTML = `Profile viewed by users in last 30 Days: ${profileArr}`;
+							document.querySelector('.profile-heading').innerHTML = `${profileArr}`;
 
 							let email = res.data.data[1].values;
 
@@ -890,9 +1104,7 @@ function instaInfo() {
 								emailArr += finalEmail[i][1].value;
 							}
 
-							document.querySelector(
-								'.emailContact'
-							).innerHTML = `Email contact button clicked in last 30 Days: ${emailArr}`;
+							document.querySelector('.email-heading').innerHTML = `${emailArr}`;
 
 							let growth = res.data.data[2].values;
 
@@ -993,9 +1205,7 @@ function instaInfo() {
 								phoneArr += finalPhoneCallClicks[i][1].value;
 							}
 
-							document.querySelector(
-								'.phoneClick'
-							).innerHTML = `Phone Call button clicked in last 30 Days: ${phoneArr}`;
+							document.querySelector('.phone-heading').innerHTML = `${phoneArr}`;
 
 							let textMsgClick = res.data.data[4].values;
 
@@ -1007,9 +1217,7 @@ function instaInfo() {
 								textArr += finalTextMsgClick[i][1].value;
 							}
 
-							document.querySelector(
-								'.textClick'
-							).innerHTML = `Text Message button clicked in last 30 Days:  ${textArr}`;
+							document.querySelector('.msg-heading').innerHTML = `${textArr}`;
 
 							let websiteClicks = res.data.data[4].values;
 
@@ -1021,31 +1229,7 @@ function instaInfo() {
 								websiteArr += finalWebsiteClicks[i][1].value;
 							}
 
-							document.querySelector(
-								'.webClick'
-							).innerHTML = `Website button clicked in last 30 Days: ${websiteArr}`;
-						});
-
-					axios
-						.get(
-							`https://graph.facebook.com/v11.0/${instaId}/insights?metric=impressions,reach&period=days_28&since=${priorDate}&until=${today}&access_token=${accessToken}`
-						)
-						.then((res) => {
-							let impressions = res.data.data[0].values[0];
-
-							let finalImpressions = Object.entries(impressions);
-
-							let reach = res.data.data[1].values[0];
-
-							let finalReach = Object.entries(reach);
-
-							document.querySelector(
-								'.impression'
-							).innerHTML = `Impressions form last 28 day: ${finalImpressions[0][1]}`;
-
-							document.querySelector(
-								'.reach'
-							).innerHTML = `Unique viewers from last 28 day: ${finalReach[0][1]}`;
+							document.querySelector('.website-heading').innerHTML = `${websiteArr}`;
 						});
 
 					axios
@@ -1131,8 +1315,6 @@ function instaInfo() {
 									projection : false
 								},
 								defaultPoint_tooltip : '%country',
-
-								// palette        : 'oceanMidtones',
 
 								series               : [
 									{
@@ -1315,11 +1497,11 @@ function instaInfo() {
 				}
 			);
 
-			fileUpload.addEventListener('click', () => {
-				fileBtn.click();
-			});
+			// fileUpload.addEventListener('click', () => {
+			// 	fileBtn.click();
+			// });
 
-			fileBtn.addEventListener('change', (ev) => {
+			fileBtn.addEventListener('click', (ev) => {
 				var myHeaders = new Headers();
 				myHeaders.append('Authorization', 'Client-ID c745c1426f97da9');
 
@@ -1340,9 +1522,11 @@ function instaInfo() {
 
 						imgUrl = result.data.link;
 
-						autoPost();
+						localStorage.imgurl = result.data.link;
 
-						console.log(imgUrl);
+						// setTimeout(autoPost, `${seconds}`);
+
+						// console.log(imgUrl);
 					})
 					.catch((error) => console.log('error', error));
 
@@ -1373,8 +1557,13 @@ function instaInfo() {
 					.then((response) => response.json())
 					.then((result) => {
 						creationId = result.id;
+
+						publish();
 					})
-					.catch((error) => console.log('error', error));
+					.catch((error) => {
+						alert('Sorry Theres some error please try again in some thime.');
+						console.log('error', error);
+					});
 			}
 
 			function publish() {
@@ -1399,14 +1588,11 @@ function instaInfo() {
 			}
 		});
 	});
+
+	function openForm() {
+		document.getElementById('popupForm').style.display = 'block';
+	}
+	function closeForm() {
+		document.getElementById('popupForm').style.display = 'none';
+	}
 }
-
-const button = document.getElementById('signout_button');
-button.onclick = () => {
-	google.accounts.id.disableAutoSelect();
-
-	google.accounts.id.initialize();
-
-	google.accounts.id.prompt();
-	console.log('logged out');
-};

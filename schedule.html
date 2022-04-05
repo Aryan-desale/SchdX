@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Insights</title>
+
+    <meta http-equiv="Cache-control" content="private">
+
+
+    <link rel="stylesheet" href="style.css">
+
+
+
+    <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <meta name="referrer" content="no-referrer">
+    <meta charset='utf-8' />
+
+    <link href='node_modules/fullcalendar-scheduler/main.css' rel='stylesheet' />
+    <script src='node_modules/fullcalendar-scheduler/main.js'></script>
+ 
+
+</head>
+
+<script src="init.js"></script>
+
+<body class="body" >
+
+    
+    <nav class="navbar">
+
+        <div class="nav-main">
+
+
+            <a href="index.html" class="nav-item Home">Home</a>
+
+            <a href="insights.html" class="nav-item Insights">Insights</a>
+
+            <a href="schedule.html" class="nav-item Schedule">Schedule Posts</a>
+
+
+
+
+        </div>
+
+        
+            <div class="navigation">
+            
+                <a class="button" href="">					
+                    <img class="avatar" src=" " alt="" />
+
+            
+                    <div class="logout">LOGOUT</div>
+
+                </a>
+            
+            </div>
+       
+
+            <!-- <li class="logout" href="#" onclick="logout()">Logout</li> -->
+
+            <fb:login-button id="fb-btn"
+                    scope="public_profile,email"
+                    >
+            </fb:login-button>
+    </nav>
+
+    <div id="container">
+
+
+           <button class="upload"> Select File </button>
+        
+            <input type='file' id='file'  /> 
+            
+
+        
+            <br>
+        
+
+
+
+        
+        
+        
+    </div>
+
+
+    <div class="openBtn">
+      <button class="openButton" onclick="openForm()"><strong>Open Form</strong></button>
+    </div>
+
+    <div class="loginPopup">
+        <div class="formPopup" id="popupForm">
+
+            <form action="/action_page.php" class="formContainer">
+            <h2>Please Log in</h2>
+
+            <label for="email">
+                <strong>E-mail</strong>
+            </label>
+
+            <input type="text" id="email" placeholder="Your Email" name="email" required>
+
+            <label for="psw">
+                <strong>Password</strong>
+            </label>
+
+            <input type="password" id="psw" placeholder="Your Password" name="psw" required>
+
+            <button type="submit" class="btn">Log in</button>
+
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            </form>
+
+        </div>
+    </div>
+
+     
+
+
+            <!-- <div id='calendar'> </div> -->
+
+
+
+
+</body>
+
+
+
+<script src="main.js"></script>
+
+</html>
+

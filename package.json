@@ -6,6 +6,8 @@
 		"start": "lite-server"
 	},
 	"dependencies": {
-		"language-tags": "^1.0.5"
+		"fullcalendar-scheduler": "^5.9.0",
+		"language-tags": "^1.0.5",
+		"openssl": "^2.0.0"
 	}
 }
