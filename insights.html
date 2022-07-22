@@ -4,14 +4,20 @@
       <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram Insights</title>
+        <link rel="icon" type="image/png" href="images/favicon 16.png" size='16x16'>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon 180.png">
+    <link rel="icon" type="image/png" href="images/favicon 32.png" sizes="32x32">
+
+    <title>Schdx</title>
+
 
     <meta http-equiv="Cache-control" content="private">
 
 
     <link rel="stylesheet" href="style.css">
 
-    <script src="https://kit.fontawesome.com/e7e3b5ac2c.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/e7e3b5ac2c.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
 
@@ -22,7 +28,7 @@
     <meta name="referrer" content="no-referrer">
     <meta charset='utf-8' />
 
-    <link href='node_modules/fullcalendar-scheduler/main.css' rel='stylesheet' />
+     <link href='node_modules/fullcalendar-scheduler/main.css' rel='stylesheet' />
     <script src='node_modules/fullcalendar-scheduler/main.js'></script>
 
 
@@ -33,15 +39,44 @@
 <body  class="body">
 
     <nav class="navbar">
+<div id="menuToggle">
+            <!--
+            A fake / hidden checkbox is used as click reciever,
+            so you can use the :checked selector on it.
+            -->
+            <input type="checkbox" />
+            
+            <!--
+            Some spans to act as a hamburger.
+            
+            They are acting like a real hamburger,
+            not that McDonalds stuff.
+            -->
+            <span></span>
+            <span></span>
+            <span></span>
+            
+            <!--
+            Too bad the menu has to be inside of the button
+            but hey, it's pure CSS magic.
+            -->
+            <ul id="menu">
+            <a href="insights.html" class="nav-item insights1"><li>Insights</li></a>
+            <a href="schedule.html" class="nav-item schedule1"><li>Schedule Posts</li></a>
+            </ul>
+
+        </div>
 
         <div class="nav-main">
 
+            
 
-            <a href="index.html" class="nav-item Home">Home</a>
 
-            <a href="insights.html" class="nav-item Insights">Insights</a>
+            <a href="index.html" class="nav-item home"> <img class = "logo" src="images/final logo.png" alt=""> </a>
 
-            <a href="schedule.html" class="nav-item Schedule">Schedule Posts</a>
+            <a href="insights.html" class="nav-item insights">Insights</a>
+
+            <a href="schedule.html" class="nav-item schedule">Schedule Posts</a>
 
 
 
@@ -49,26 +84,39 @@
         </div>
 
         
+
+        
+
+       
+        
             <div class="navigation">
             
-                <a class="button" href="">					
+                <a class="button" href="">	
+
                     <img class="avatar" src=" " alt="" />
 
-            
                     <div class="logout">LOGOUT</div>
 
                 </a>
             
             </div>
+
+
        
+            <button class="instaLogin">Connect Instagram</button>
 
-            <!-- <li class="logout" href="#" onclick="logout()">Logout</li> -->
 
-            <fb:login-button id="fb-btn"
-                    scope="public_profile,email"
-                    >
+            <fb:login-button id="fb-btn" scope="public_profile,email" onlogin="checkLoginState();">
             </fb:login-button>
     </nav>
+
+    <!-- <div class="intro">
+        <h1 class="heading">SchdX</h1>
+        
+        <p class="para">Know you Instagram insights better then ever.</p>
+        
+        <p class="para">Simple, Faster and Easy Scheduling of Instagram Posts.</p>
+    </div> -->
 
     <div id="container">
 
@@ -103,6 +151,7 @@
                           </div>
                         
                     </div> 
+
              
              
                      <div class="acc-div">
@@ -119,7 +168,7 @@
                     </div> 
              
              
-                     <div class="acc-div">
+                     <div class="profile-div acc-div">
              
                         <i class="acc-icon far fa-user-circle"></i>
                     
@@ -308,6 +357,8 @@
 <script type="text/javascript" src="https://code.jscharting.com/latest/modules/toolbar.js"></script>
 <script type="text/javascript" src="https://code.jscharting.com/latest/modules/maps.js"></script>
 <!-- <script type="text/javascript" src="../jsc/modules/toolbar.js"></script> -->
+
+<script src="init.js"></script>
 
 
 <script src="main.js"></script>
